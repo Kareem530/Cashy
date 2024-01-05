@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | Contact {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="contact">
+           <form action="{% url 'Contact' %}" method="POST">
+            {% csrf_token %}
+            
+               <h2>Get in touch with us</h2>
+               <p>Please fill out the form below and we will get back to you as soon as possible</p>
+
+               {% include 'partials/alerts.html' %}
+               {% if user.is_authenticated %}
+               <input type="hidden" name="user_id" value="{{ user.id }}">
+           {% else %}
+               <input type="hidden" name="user_id" value="0">
+           {% endif %}
+               <input type="text" name="name" placeholder="Name" {% if user.is_authenticated %} value="{{user.first_name}} {{user.last_name}}" {% endif %} required>
+               <input type="email" name="email" placeholder="Email" {% if user.is_authenticated %} value="{{user.email}}" {% endif %} required>
+               <input type="text" name="subject" placeholder="Subject" required>
+               <textarea name="message" placeholder="Message" rows="10" required></textarea>
+               <button type="submit">Send Message</button> 
+           </form>
+           <div>
+               <h3>Our Address</h3>
+               <p>4006 El Malika Farida</p>
+               <p>El Maadi, El-Basatin Sharkeya, El Basatin, Cairo Governorate 4235330</p>
+               <p>Egypt</p>
+               <h3>Our Phone</h3>
+               <p>+02 (10) 864-4567</p>
+               <h3>Our Email</h3>
+               <p>Support@Cashy.Com</p>
+           </div>
+       </div>
+    </div>  
+{% endblock %}

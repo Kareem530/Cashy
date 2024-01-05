@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | Home {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="banner">
+            {% include 'partials/alerts.html' %}
+            <h1>Send Money Anywhere, Anytime</h1>
+            <p>Fast, secure and easy way to transfer money online</p>
+            <a {% if user.is_authenticated %} href="{% url 'Services' %}" {% else %} href="{% url 'Register' %}"{% endif %}><button>Get Started</button></a>
+        </div>
+        <div class="statistics">
+            <h2>Why choose us</h2>
+            <div class="statistics-grid">
+                <div class="statistic">
+                    <img src="{% static 'img/World.png' %}" alt="World Icon">
+                    <h3>200+</h3>
+                    <p>Countries and territories we serve</p>
+                </div>
+                <div class="statistic">
+                    <img src="{% static 'img/Clients.png' %}" alt="People Icon">
+                    <h3>10M+</h3>
+                    <p>Customers who trust us</p>
+                </div>
+                <div class="statistic">
+                    <img src="{% static 'img/Money.png' %}" alt="Money Icon">
+                    <h3>$5B+</h3>
+                    <p>Money transferred annually</p>
+                </div>
+            </div>
+        </div>
+        <div class="faqs">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faqs-grid">
+                <div class="faq">
+                    <p>How do I send money with Cashy?</p>
+                    <img src="{% static 'img/Answer.png' %}" alt="Answer Icon">
+                    <p>It's simple. Just create an account, choose your recipient, enter the amount and select a payment method. You can pay with your debit or credit card, bank account or mobile wallet. We will handle the rest and deliver the money to your recipient in minutes.</p>
+                </div>
+                <div class="faq">
+                    <p>How do I receive money with Cashy?</p>
+                    <img src="{% static 'img/Answer.png' %}" alt="Answer Icon">
+                    <p>You can receive money in various ways, depending on your country and preference. You can choose to receive money in your bank account, mobile wallet or cash pickup location. You will get a notification when the money is ready for you.</p>
+                </div>
+                <div class="faq">
+                    <p>How much does it cost to use Cashy?</p>
+                    <img src="{% static 'img/Answer.png' %}" alt="Answer Icon">
+                    <p>We charge a low and transparent fee for each transfer, which varies depending on the amount, destination and payment method. You can see the exact fee and exchange rate before you confirm your transfer. We guarantee that there are no hidden charges or markups.</p>
+                </div>
+                <div class="faq">
+                    <p>How safe is Cashy?</p>
+                    <img src="{% static 'img/Answer.png' %}" alt="Answer Icon">
+                    <p>We take security very seriously. We use encryption, verification and fraud prevention measures to protect your money and personal information. We are also licensed and regulated by the relevant authorities in the countries we operate.</p>
+                </div>
+            </div>
+        </div>
+        <div class="features">
+            <div>
+                <img src="{% static 'img/LowPrice.png' %}" alt="Low Fees Icon">
+                <h3>Low Fees</h3>
+                <p>Pay only a small percentage of your transfer amount</p>
+            </div>
+             <div>
+                <img src="{% static 'img/Quick.png' %}" alt="Instant Delivery Icon">
+                <h3>Instant Delivery</h3>
+                <p>Receive your money in minutes after you send it</p>
+             </div>
+             <div>
+                <img src="{% static 'img/Transaction.png' %}" alt="Secure Transactions Icon">
+                <h3>Secure Transactions</h3>
+                <p>Protect your money and personal information with encryption and verification</p>
+             </div>
+         </div>
+     </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} | Account Register {% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    <form action="{% url 'Register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form">
+            <h2>Create your account</h2>
+            <p>Please enter your details to register on our website</p>
+
+            {% include 'partials/alerts.html' %}
+
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="tel" name="phonenum" placeholder="Phone Number" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

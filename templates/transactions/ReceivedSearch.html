@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %} | Received Transaction History {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center" style = "margin-top: 40px; align: center">
+        <div class="col-md-6">
+            <form method="GET" action="{% url 'SentSearch' %}">
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" name="start_date" value="{{ start_date }}">
+                    <input type="date" class="form-control" name="end_date" value="{{ end_date }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="transactions">
+        {% if Received_History %}
+                <h2>Received Transaction</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Sender Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for Transaction in Received_History %}
+                            <tr>
+                                <td>{{ Transaction.timestamp }}</td>
+                                <td>{{ Transaction.sender.username }}</td>
+                                <td> ${{ Transaction.amount | intcomma}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        {% else %}
+            <h1 style="text-align: center;">No Transactions</h1>
+        {% endif %}
+    </div> 
+</div> 
+
+{% endblock %}
+
+
+
+

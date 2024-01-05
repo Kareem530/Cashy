@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | Services {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="services">
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'SendMoney' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/SendMoney.png' %}" alt="Send Money Icon"></a>
+                <h3>Send Money</h3>
+                <p>Send money to your friends, family or business partners in over 200 countries and territories.</p>
+            </div>
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'Paybills' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/PayBills.png' %}" alt="Pay Bills Icon"></a>
+                <h3>Pay Bills</h3>
+                <p>Conveniently and securely pay your bills online or through our mobile app, including utility bills, credit card bills, and other expenses.</p>
+            </div>
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'CashTransactions' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/ATMTransactions.png' %}" alt="ATM Transactions Icon"></a>
+                <h3>ATM Transactions</h3>
+                <p>Withdraw cash or deposit money at ATMs with added security features to protect your transactions and personal information.</p>
+            </div>
+        </div>
+     </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | Cash Transactions {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form action="{% url 'CashTransactions' %}" method="POST">
+        {% csrf_token %}
+        <div class="form">
+            <h2>Deposit and Withdrawal</h2>
+            <p>Please enter the amount you wish to deposit or withdraw from your account</p>
+
+            {% include 'partials/alerts.html' %}
+
+            <input type="number" name="amount" placeholder="Amount" required>
+            <select name="transaction_type" required>
+                <option value="" disabled selected>Select Transaction Type</option>
+                <option value="Deposit">Deposit</option>
+                <option value="Withdraw">Withdraw</option>
+            </select>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

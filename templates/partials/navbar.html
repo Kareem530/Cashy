@@ -1,0 +1,58 @@
+{% load static %}
+
+<div class="menu">
+    <div class="logo">
+        <a href="{% url 'Home' %}"><img src="{% static 'img/Cashy.png' %}" alt="Logo"></a>
+    </div>
+    <a {% if '/' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Home' %}">Home</a>
+    <a {% if '/About' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'About' %}">About</a>
+    <a {% if '/Services' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Services' %}">Services</a>
+    <a {% if '/Contact' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Contact' %}">Contact</a>
+
+{% if user.is_authenticated %}
+
+<a {% if '/accounts/Dashboard' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Dashboard' %}">Dashboard</a>
+
+<div style="display: inline-block;">
+    <a href="javascript:{document.getElementById('logout').submit()}"> Logout</a>
+    <form action="{% url 'Logout' %}" method="POST" id="logout">
+        {% csrf_token %}
+        <input type="hidden">
+    </form>
+</div>
+
+{% else %}
+
+    <a {% if '/accounts/Login' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Login' %}">Login</a>
+    <a {% if '/accounts/Register' == request.path %}
+    class="active"
+{% else %}
+    class="nav-item"
+{% endif %} href="{% url 'Register' %}">Register</a>
+{% endif %}
+
+</div>

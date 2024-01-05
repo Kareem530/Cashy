@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %} | Dashboard {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="banner">
+            {% include 'partials/alerts.html' %}
+
+            <h1>Welcome to your dashboard, {{user.first_name}}</h1>
+            <p>Here you can manage your account, view your transactions and send or receive money.</p>
+        </div>
+        <h1 style="text-align: center;">User Information</h1>
+        <div class="user-info">
+            <p><strong>First Name:</strong> {{user.first_name}} | <strong>Last Name:</strong> {{user.last_name}}</p>
+            <p><strong>Username:</strong> {{user.username}} | <strong>Email:</strong> {{user.email}}</p>
+            <p><strong>Balance:</strong> ${{user.balance | intcomma}}</p>
+        </div>
+
+        <hr style="border: 1px solid #7EBD01;border-radius: 5px;">
+        <h1 style="text-align: center;">Services</h1>
+        <div class="services">
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'SendMoney' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/SendMoney.png' %}" alt="Send Money Icon"></a>
+                <h3>Send Money</h3>
+                <p>Send money to your friends, family or business partners in over 200 countries and territories.</p>
+            </div>
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'Paybills' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/PayBills.png' %}" alt="Pay Bills Icon"></a>
+                <h3>Pay Bills</h3>
+                <p>Conveniently and securely pay your bills online or through our mobile app, including utility bills, credit card bills, and other expenses.</p>
+            </div>
+            <div>
+                <a {% if user.is_authenticated %} href="{% url 'CashTransactions' %}"{% else %} href="{% url 'Login' %}" {% endif %}> <img src="{% static 'img/ATMTransactions.png' %}" alt="ATM Transactions Icon"></a>
+                <h3>ATM Transactions</h3>
+                <p>Withdraw cash or deposit money at ATMs with added security features to protect your transactions and personal information.</p>
+            </div>
+        </div>
+
+        <hr style="border: 1px solid #7EBD01;border-radius: 5px;">
+        <div class="transactions">
+            {%if Cash_Transactions or Paid_Bills or Sent_Transactions or Received_Transactions%}
+            <h1 style="text-align: center;">Recent Transactions</h1>
+            {% if Cash_Transactions%}
+            <a href="{% url 'Cash_History' %}"><h2>ATM Transactions</h2></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Cash_Transaction in Cash_Transactions %}
+                    <tr>
+                        <td>{{ Cash_Transaction.timestamp }}</td>
+                        <td>{{ Cash_Transaction.type }}</td>
+                        <td> ${{ Cash_Transaction.amount | intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% if Paid_Bills%}
+            <a href="{% url 'Paid_History' %}"><h2>Paid Bills</h2></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Company Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Paid_Bill in Paid_Bills %}
+                    <tr>
+                        <td>{{ Paid_Bill.timestamp }}</td>
+                        <td>{{ Paid_Bill.receiver.company_name }}</td>
+                        <td> ${{ Paid_Bill.amount | intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% if Sent_Transactions%}
+            <a href="{% url 'Sent_History' %}"><h2>Sent Transactions</h2></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Receiver Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Sent_Transaction in Sent_Transactions %}
+                    <tr>
+                        <td>{{ Sent_Transaction.timestamp }}</td>
+                        <td>{{ Sent_Transaction.receiver.username }}</td>
+                        <td> ${{ Sent_Transaction.amount | intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% if Received_Transactions%}
+            <a href="{% url 'Received_History' %}"><h2>Received Transactions</h2></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Sender Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Received_Transaction in Received_Transactions %}
+                    <tr>
+                        <td>{{ Received_Transaction.timestamp }}</td>
+                        <td>{{ Received_Transaction.sender.username }}</td>
+                        <td> ${{ Received_Transaction.amount | intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {%else%}
+            <h1 style="text-align: center;">No Transactions Yet</h1>
+            {% endif %}
+        </div>
+     </div>
+{% endblock %}

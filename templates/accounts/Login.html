@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} | Account Login {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <form action="{% url 'Login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form">
+                <h2>Login to your account</h2>
+                <p>Please enter your Username and password to access your dashboard</p>
+
+                {% include 'partials/alerts.html' %}
+
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+

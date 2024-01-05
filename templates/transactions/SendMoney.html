@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} | Send Money {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form action="{% url 'SendMoney' %}" method="POST">
+        {% csrf_token %}
+        <div class="form">
+            <h2>Send Money</h2>
+            <p>Please enter the recipient's information and the amount you wish to send</p>
+
+            {% include 'partials/alerts.html' %}
+
+            <input type="text" name="recipient_Username" placeholder="Recipient's Username" required>
+            <input type="tel" name="recipient_phone" placeholder="Recipient's Phone Number" required>
+            <input type="number" name="amount" placeholder="Amount" required>
+            <button type="submit">Send Money</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
